@@ -474,12 +474,13 @@ fun TransactionItem(
 }
 
 @Composable
-fun TransactionSummary(transactions: List<Transaction>) {
+fun TransactionSummary(transactions: List<Transaction>,onClick: () -> Unit = {}) {
     val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
     val totalExpense = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
     val balance = totalIncome - totalExpense
 
     Column(
+        modifier = Modifier.clickable { onClick() },
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // Main Balance Card

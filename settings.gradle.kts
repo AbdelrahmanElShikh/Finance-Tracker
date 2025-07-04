@@ -23,4 +23,4 @@ rootProject.name = "Finance Tracker"
 include(":app")
 include(":domain")
 include(":data")
-include(":data")
+include(":currency-converter")

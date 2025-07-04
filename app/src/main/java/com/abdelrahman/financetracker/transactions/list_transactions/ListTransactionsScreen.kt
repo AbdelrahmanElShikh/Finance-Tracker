@@ -49,7 +49,8 @@ import com.abdelrahman.financetracker.transactions.mockTransactions.getFakeTrans
 @Composable
 fun ListTransactionsScreen(
     onNavigateToAdd: () -> Unit,
-    onNavigateToEdit: (String) -> Unit = {},
+    onNavigateToEdit: (String) -> Unit,
+    onNavigateToCurrencyConverter: () -> Unit,
     viewModel: ListTransactionsViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -58,6 +59,7 @@ fun ListTransactionsScreen(
         state = state,
         onNavigateToAdd = onNavigateToAdd,
         onNavigateToEdit = onNavigateToEdit,
+        onNavigateToCurrencyConverter = onNavigateToCurrencyConverter
     )
 }
 
@@ -67,7 +69,8 @@ fun ListTransactionsScreenContent(
     state: ListTransactionsState,
     onNavigateToAdd: () -> Unit,
     onNavigateToEdit: (String) -> Unit,
-) {
+    onNavigateToCurrencyConverter: () -> Unit,
+    ) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -121,7 +124,7 @@ fun ListTransactionsScreenContent(
             ) {
                 item {
                     // Summary Cards
-                    TransactionSummary(state.transactions)
+                    TransactionSummary(state.transactions,onNavigateToCurrencyConverter)
                 }
 
                 item {
@@ -205,6 +208,7 @@ fun ListTransactionsScreenContentWithDataPreview() {
             ),
             onNavigateToAdd = {},
             onNavigateToEdit = {},
+            onNavigateToCurrencyConverter = {}
         )
     }
 }

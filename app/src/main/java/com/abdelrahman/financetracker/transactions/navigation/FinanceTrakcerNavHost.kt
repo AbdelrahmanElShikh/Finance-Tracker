@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.abdelrahman.financetracker.currencyconverter.navigation.CurrencyConverterRoute
+import com.abdelrahman.financetracker.currencyconverter.navigation.currencyConverterScreen
 import com.abdelrahman.financetracker.transactions.add_transaction.AddTransactionsScreen
 import com.abdelrahman.financetracker.transactions.edit_transaction.EditTransactionsScreen
 import com.abdelrahman.financetracker.transactions.list_transactions.ListTransactionsScreen
@@ -24,6 +26,9 @@ fun FinanceTrackerNavHost() {
                 },
                 onNavigateToEdit = { transactionId ->
                     navController.navigate(TransactionRoute.EditTransactionRoute(transactionId))
+                },
+                onNavigateToCurrencyConverter = {
+                    navController.navigate(CurrencyConverterRoute.CurrencyConverter)
                 }
             )
         }
@@ -38,7 +43,7 @@ fun FinanceTrackerNavHost() {
 
         composable<TransactionRoute.EditTransactionRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<TransactionRoute.EditTransactionRoute>()
-            
+
             EditTransactionsScreen(
                 transactionId = route.transactionId,
                 onNavigateBack = {
@@ -46,6 +51,10 @@ fun FinanceTrackerNavHost() {
                 }
             )
         }
+
+        currencyConverterScreen(
+            onNavigateBack = { navController.popBackStack() },
+            onNavigateToSettings = { navController.navigate(CurrencyConverterRoute.CurrencySettings) })
 
     }
 }
